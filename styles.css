@@ -2957,3 +2957,25 @@ main + .site-footer {
     padding-top: 1.35rem;
   }
 }
+
+/* Catalogue page layout fix */
+.catalogue-page {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0;
+}
+
+.catalogue-page > section {
+  width: 100%;
+}
+
+.catalogue-page > .catalogue-hero + .catalogue-roadmap {
+  margin-top: 1rem;
+  padding-top: 0;
+}
+
+.catalogue-page > .catalogue-hero + .catalogue-roadmap::before {
+  display: none;
+}
