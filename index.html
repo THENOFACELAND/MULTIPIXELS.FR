@@ -329,7 +329,8 @@
         ]);
       }
 
-      function getReviewsApiCandidates() {
+      function getReviewsSources() {
+        const staticSource = "/assets/data/google-reviews.json";
         const sameOrigin = "/api/google-reviews";
         const localApis = [
           "http://localhost:3000/api/google-reviews",
@@ -339,12 +340,16 @@
         ];
         const isLocalHost = location.hostname === "localhost" || location.hostname === "127.0.0.1";
         const isLiveServerPort = /^55\d{2}$/.test(location.port || "");
+        const apiCandidates = isLocalHost && isLiveServerPort
+          ? [...localApis, sameOrigin]
+          : [sameOrigin, ...localApis];
 
-        if (isLocalHost && isLiveServerPort) {
-          return [...localApis, sameOrigin];
-        }
-
-        return [sameOrigin, ...localApis];
+        return [
+          { kind: "static", url: staticSource },
+          ...apiCandidates.map(function (url) {
+            return { kind: "backend", url: url };
+          })
+        ];
       }
 
       async function fetchReviews() {
@@ -354,14 +359,14 @@
         }, 12000);
 
         try {
-          const apiCandidates = getReviewsApiCandidates();
+          const sources = getReviewsSources();
           let payload = null;
           let response = null;
           let lastError = null;
 
-          for (const apiUrl of apiCandidates) {
+          for (const source of sources) {
             try {
-              response = await fetch(apiUrl, {
+              response = await fetch(source.url, {
                 method: "GET",
                 headers: {
                   "Accept": "application/json"
@@ -380,11 +385,20 @@
                 throw new Error("Réponse API invalide.");
               }
 
-              if (!response.ok || !payload || !payload.ok) {
-                const message = payload && payload.error && payload.error.message
-                  ? payload.error.message
-                  : "Erreur de récupération des avis Google.";
-                throw new Error(message);
+              if (source.kind === "backend") {
+                if (!response.ok || !payload || !payload.ok) {
+                  const message = payload && payload.error && payload.error.message
+                    ? payload.error.message
+                    : "Erreur de récupération des avis Google.";
+                  throw new Error(message);
+                }
+              } else {
+                if (!response.ok || !payload || payload.ok === false) {
+                  const message = payload && payload.error && payload.error.message
+                    ? payload.error.message
+                    : "Fichier d'avis indisponible.";
+                  throw new Error(message);
+                }
               }
 
               break;
@@ -395,7 +409,7 @@
             }
           }
 
-          if (!response || !payload || !payload.ok) {
+          if (!response || !payload) {
             throw lastError || new Error("Connexion au service d'avis impossible.");
           }
 

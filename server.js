@@ -109,6 +109,20 @@ function sanitizeLine(value, maxLen = 4000) {
   return String(value || "").replace(/\r?\n/g, " ").trim().slice(0, maxLen);
 }
 
+function repairText(value) {
+  const raw = String(value || "");
+  if (!raw) return "";
+
+  const maybeMojibake = /Ã|Â|ðŸ|�/.test(raw);
+  if (!maybeMojibake) {
+    return raw;
+  }
+
+  const repaired = Buffer.from(raw, "latin1").toString("utf8");
+  const stillBroken = /Ã|Â|ðŸ|�/.test(repaired);
+  return stillBroken ? raw : repaired;
+}
+
 async function handleContactApi(req, res) {
   if (!nodemailer) {
     sendJson(res, 500, {
@@ -300,19 +314,19 @@ async function getPlaceDetails(placeId) {
   const result = body.result;
   const reviews = Array.isArray(result.reviews) ? result.reviews.slice(0, 3) : [];
   const normalizedReviews = reviews.map((review) => ({
-    author: review.author_name || "Client Google",
+    author: repairText(review.author_name || "Client Google"),
     rating: Number(review.rating || 0),
-    text: review.text || "Avis client Google",
-    time: review.relative_time_description || ""
+    text: repairText(review.text || "Avis client Google"),
+    time: repairText(review.relative_time_description || "")
   }));
 
   return {
     ok: true,
     placeId: result.place_id || placeId,
-    name: result.name || "Etablissement Google",
+    name: repairText(result.name || "Etablissement Google"),
     rating: Number(result.rating || 0),
     ratingCount: Number(result.user_ratings_total || 0),
-    url: result.url || "",
+    url: repairText(result.url || ""),
     reviews: normalizedReviews
   };
 }

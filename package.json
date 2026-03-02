@@ -5,7 +5,8 @@
   "description": "Site MULTIPIXELS avec proxy backend pour avis Google",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "reviews:update": "node scripts/update-google-reviews.js"
   },
   "dependencies": {
     "nodemailer": "^6.9.16"

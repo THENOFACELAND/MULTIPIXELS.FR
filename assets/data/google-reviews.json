@@ -1,0 +1,30 @@
+{
+  "ok": true,
+  "source": "google_places_api",
+  "generatedAt": "2026-03-02T15:03:09.643Z",
+  "placeId": "ChIJR0tWmKLb3UcROIWU4qfA-RU",
+  "name": "MULTIPIXELS",
+  "rating": 5,
+  "ratingCount": 18,
+  "url": "https://maps.google.com/?cid=1583508571290895672",
+  "reviews": [
+    {
+      "author": "Nohémy Lalande",
+      "rating": 5,
+      "text": "Avis client Google",
+      "time": "il y a un mois"
+    },
+    {
+      "author": "Ice Coza",
+      "rating": 5,
+      "text": "Merci beaucoup, tout est impeccable, livraison rapide, article correspondant à la description 👍🙏",
+      "time": "il y a un mois"
+    },
+    {
+      "author": "Julie Wozniak",
+      "rating": 5,
+      "text": "Très professionnel, réactif\nQualité top",
+      "time": "il y a 6 mois"
+    }
+  ]
+}
