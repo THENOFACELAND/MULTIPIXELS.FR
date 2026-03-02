@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nous contacter | MULTIPIXELS.FR</title>
+  <meta name="description" content="Contactez MULTIPIXELS.FR pour votre projet de flocage textile ou broderie de vêtements." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="logo" href="index.html"><img class="logo-mark" src="assets/Background/logo.png" alt="Logo MULTIPIXELS.FR" /><span>MULTIPIXELS.FR</span></a>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="galerie.html">Galerie</a>
+        <a href="tarifs.html">Tarifs</a>
+        <a href="catalogue.html">Catalogue</a>
+        <a class="active" href="contact.html">Nous contacter</a>
+      </nav>
+      <a class="btn btn-small" href="contact.html">Demander un devis</a>
+    </div>
+  </header>
+
+  <main class="container section content-shell">
+    <div class="section-head reveal">
+      <p class="eyebrow">Parlons de votre projet</p>
+      <h1>Nous contacter</h1>
+      <p>Décrivez votre besoin et recevez une réponse rapide avec une proposition adaptée.</p>
+    </div>
+
+    <section class="contact-grid">
+      <form id="contact-form" class="contact-form reveal">
+        <label for="nom">Nom complet</label>
+        <input id="nom" name="nom" type="text" required />
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required />
+
+        <label for="tel">Téléphone</label>
+        <input id="tel" name="tel" type="tel" />
+
+        <label for="service">Type de prestation</label>
+        <select id="service" name="service" required>
+          <option value="">Sélectionnez une option</option>
+          <option value="flocage">Flocage textile</option>
+          <option value="broderie">Broderie</option>
+          <option value="mixte">Flocage + Broderie</option>
+          <option value="autre">Autre</option>
+        </select>
+
+        <label for="message">Votre message</label>
+        <textarea id="message" name="message" rows="5" required placeholder="Quantité, textile souhaité, délai, logo..."></textarea>
+
+        <button id="contact-submit" class="btn" type="submit">Envoyer ma demande</button>
+      </form>
+
+      <aside class="contact-card reveal delay-1">
+        <h2>Coordonnées</h2>
+        <p><strong>Email :</strong><br />contact@multipixels.fr</p>
+        <p><strong>Téléphone :</strong><br />0627140840</p>
+        <p><strong>Adresse atelier :</strong><br />190 Chemin Blanc, 62180 Rang-du-Fliers</p>
+        <div class="hours-wrap">
+          <p><strong>Horaires :</strong></p>
+          <table class="hours-table" aria-label="Horaires d'ouverture">
+            <tbody>
+              <tr><td class="hours-day">Lundi</td><td class="hours-time">09h00-12h00&nbsp;&nbsp;/&nbsp;&nbsp;14h00-18h30</td></tr>
+              <tr><td class="hours-day">Mardi</td><td class="hours-time">09h00-12h00&nbsp;&nbsp;/&nbsp;&nbsp;14h00-18h30</td></tr>
+              <tr><td class="hours-day">Mercredi</td><td class="hours-time">09h00-12h00&nbsp;&nbsp;/&nbsp;&nbsp;14h00-18h30</td></tr>
+              <tr><td class="hours-day">Jeudi</td><td class="hours-time">09h00-12h00&nbsp;&nbsp;/&nbsp;&nbsp;14h00-18h30</td></tr>
+              <tr><td class="hours-day">Vendredi</td><td class="hours-time">09h00-12h00&nbsp;&nbsp;/&nbsp;&nbsp;14h00-18h00</td></tr>
+              <tr><td class="hours-day">Samedi</td><td class="hours-time">09h00-13h00</td></tr>
+              <tr><td class="hours-day">Dimanche</td><td class="hours-time hours-time-closed">Fermé</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <a class="btn btn-ghost" href="tel:+33627140840">Appeler maintenant</a>
+        <div class="social-links">
+          <p class="social-title"><strong>Réseaux :</strong></p>
+          <div class="social-list">
+            <a class="social-link" href="https://www.facebook.com/MultipixelsProd" target="_blank" rel="noopener" aria-label="Facebook Multipixels">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M13.5 8.5h2.4V5.7h-2.8c-3 0-4.6 1.8-4.6 4.9v2.1H6v2.9h2.5v5.7h3.1v-5.7h2.8l.4-2.9h-3.2v-1.9c0-1.2.5-1.8 1.9-1.8z"></path>
+              </svg>
+              <span>Facebook</span>
+            </a>
+            <a class="social-link" href="https://www.instagram.com/multipixels_design/" target="_blank" rel="noopener" aria-label="Instagram Multipixels">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <rect x="4" y="4" width="16" height="16" rx="4"></rect>
+                <circle cx="12" cy="12" r="3.5"></circle>
+                <circle cx="17.3" cy="6.7" r="1.1"></circle>
+              </svg>
+              <span>Instagram</span>
+            </a>
+            <a class="social-link" href="https://wa.me/33627140840" target="_blank" rel="noopener" aria-label="WhatsApp 0627140840">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M12 4.2c-4.3 0-7.8 3.4-7.8 7.7 0 1.5.4 2.9 1.2 4.1l-.8 3.8 3.9-.8c1.1.6 2.3 1 3.5 1 4.3 0 7.8-3.4 7.8-7.7S16.3 4.2 12 4.2z"></path>
+                <path d="M9.4 9.1c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.8.7-.8 1.8 0 1 .8 2 1 2.2.2.2 1.8 2.8 4.5 3.8 2.2.9 2.7.7 3.2.7.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.3-.2-.8-.4-.4-.2-1-.5-1.2-.5-.2-.1-.4-.1-.6.2-.2.2-.7.8-.8 1-.2.2-.3.2-.6.1-.3-.2-1.2-.4-2.2-1.4-.8-.7-1.3-1.7-1.5-1.9-.2-.3 0-.4.1-.6.2-.1.3-.3.4-.5.1-.2.1-.4 0-.5-.1-.1-.5-1.2-.7-1.6z"></path>
+              </svg>
+              <span>WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="location-block reveal" aria-label="Nous situer sur la carte">
+      <div class="location-head">
+        <h2>Nous situer</h2>
+        <p>Retrouvez facilement notre atelier à Rang-du-Fliers.</p>
+      </div>
+      <div class="location-map-tools">
+        <a class="location-open-btn" href="https://www.google.com/maps?q=190+Chemin+Blanc,+62180+Rang+du+Fliers" target="_blank" rel="noopener">
+          Ouvrir dans Google Maps
+        </a>
+      </div>
+      <div class="location-map-card">
+        <iframe
+          title="Carte Google Maps - MULTIPIXELS.FR"
+          src="https://www.google.com/maps?q=190+Chemin+Blanc,+62180+Rang+du+Fliers&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+  </main>
+
+  <div id="contact-popup" class="contact-popup" role="status" aria-live="polite" hidden>
+    <p id="contact-popup-text"></p>
+  </div>
+
+  <script>
+    (function setupContactForm() {
+      const form = document.getElementById("contact-form");
+      const submitBtn = document.getElementById("contact-submit");
+      const popup = document.getElementById("contact-popup");
+      const popupText = document.getElementById("contact-popup-text");
+      if (!form || !submitBtn || !popup || !popupText) return;
+
+      let popupTimer;
+
+      function showPopup(message, isError) {
+        popupText.textContent = message;
+        popup.classList.toggle("is-error", !!isError);
+        popup.hidden = false;
+        popup.classList.add("is-visible");
+        window.clearTimeout(popupTimer);
+        popupTimer = window.setTimeout(function () {
+          popup.classList.remove("is-visible");
+          popup.hidden = true;
+        }, 4200);
+      }
+
+      function getContactApiCandidates() {
+        const sameOrigin = "/api/contact";
+        const localApis = [
+          "http://localhost:3000/api/contact",
+          "http://127.0.0.1:3000/api/contact",
+          "http://localhost:3001/api/contact",
+          "http://127.0.0.1:3001/api/contact"
+        ];
+        const isLocalHost = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+        const isLiveServerPort = /^55\d{2}$/.test(location.port || "");
+
+        if (isLocalHost && isLiveServerPort) {
+          return [...localApis, sameOrigin];
+        }
+
+        return [sameOrigin, ...localApis];
+      }
+
+      function buildMailtoFallback(payload) {
+        const subject = "Demande de devis - " + (payload.service || "Contact");
+        const bodyLines = [
+          "Nom: " + (payload.nom || "-"),
+          "Email: " + (payload.email || "-"),
+          "Téléphone: " + (payload.tel || "-"),
+          "Service: " + (payload.service || "-"),
+          "",
+          "Message:",
+          payload.message || "-"
+        ];
+        return "mailto:contact@multipixels.fr?subject=" +
+          encodeURIComponent(subject) +
+          "&body=" +
+          encodeURIComponent(bodyLines.join("\n"));
+      }
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Envoi en cours...";
+
+        const payload = {
+          nom: (form.nom && form.nom.value ? form.nom.value : "").trim(),
+          email: (form.email && form.email.value ? form.email.value : "").trim(),
+          tel: (form.tel && form.tel.value ? form.tel.value : "").trim(),
+          service: (form.service && form.service.value ? form.service.value : "").trim(),
+          message: (form.message && form.message.value ? form.message.value : "").trim()
+        };
+
+        try {
+          const apiCandidates = getContactApiCandidates();
+          let apiResponse = null;
+          let apiBody = null;
+          let lastError = null;
+          let shouldFallbackToMailto = false;
+
+          for (const apiUrl of apiCandidates) {
+            try {
+              const response = await fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  "Accept": "application/json"
+                },
+                body: JSON.stringify(payload)
+              });
+
+              const contentType = (response.headers.get("content-type") || "").toLowerCase();
+              if (!contentType.includes("application/json")) {
+                const err = new Error("Service d'envoi indisponible. Lancez `npm start`.");
+                err.shouldFallback = true;
+                throw err;
+              }
+
+              const body = await response.json();
+              if (!response.ok || !body || !body.ok) {
+                const message = body && body.error && body.error.message
+                  ? body.error.message
+                  : "Impossible d'envoyer votre message pour le moment.";
+                const err = new Error(message);
+                err.shouldFallback = response.status >= 500;
+                throw err;
+              }
+
+              apiResponse = response;
+              apiBody = body;
+              break;
+            } catch (candidateError) {
+              lastError = candidateError;
+              if (!candidateError || candidateError.shouldFallback !== false) {
+                shouldFallbackToMailto = true;
+              }
+            }
+          }
+
+          if (!apiResponse || !apiBody || !apiBody.ok) {
+            if (shouldFallbackToMailto) {
+              const mailtoHref = buildMailtoFallback(payload);
+              showPopup("Serveur d'envoi indisponible. Votre application email s'ouvre pour finaliser l'envoi.", false);
+              window.setTimeout(function () {
+                window.location.href = mailtoHref;
+              }, 120);
+              return;
+            }
+            throw lastError || new Error("Service d'envoi indisponible.");
+          }
+
+          form.reset();
+          showPopup("Message bien envoyé. Nous revenons vers vous rapidement.", false);
+        } catch (error) {
+          showPopup(error && error.message ? error.message : "Erreur d'envoi du message.", true);
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Envoyer ma demande";
+        }
+      });
+    })();
+  </script>
+
+    <footer class="site-footer">
+    <div class="container footer-meta">
+      <p>copyright@multipixels 2026</p>
+      <p class="footer-legal"><a href="mentions-legales.html">mentions l&eacute;gales</a></p>
+      <p>site d&eacute;velopp&eacute; par Noct'Owl</p>
+    </div>
+  </footer>
+</body>
+</html>
+
+

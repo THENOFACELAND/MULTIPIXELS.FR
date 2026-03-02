@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galerie | MULTIPIXELS.FR</title>
+  <meta name="description" content="Découvrez des exemples de flocage textile et de broderie réalisés par MULTIPIXELS.FR." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="logo" href="index.html"><img class="logo-mark" src="assets/Background/logo.png" alt="Logo MULTIPIXELS.FR" /><span>MULTIPIXELS.FR</span></a>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a class="active" href="galerie.html">Galerie</a>
+        <a href="tarifs.html">Tarifs</a>
+        <a href="catalogue.html">Catalogue</a>
+        <a href="contact.html">Nous contacter</a>
+      </nav>
+      <a class="btn btn-small" href="contact.html">Demander un devis</a>
+    </div>
+  </header>
+
+  <main class="container section content-shell">
+    <div class="section-head reveal">
+      <p class="eyebrow">Nos réalisations</p>
+      <h1>Galerie de projets flocage et broderie.</h1>
+      <p>Un aperçu de nos productions pour entreprises, clubs sportifs et collections événementielles.</p>
+    </div>
+
+    <section class="gallery-3d reveal" aria-label="Carrousel 3D de réalisations">
+      <div class="gallery-3d-stage" id="gallery-3d-stage">
+        <article class="gallery-3d-item">
+          <figure class="gallery-card">
+            <img src="assets/Galerie/1.jpeg" alt="Flocage de t-shirts pour une équipe événementielle" loading="lazy" />
+            <p>Flocage net et résistant pour des t-shirts en grande série.</p>
+          </figure>
+        </article>
+        <article class="gallery-3d-item">
+          <figure class="gallery-card">
+            <img src="assets/Galerie/2.jpeg" alt="Sweats d'association personnalisés" loading="lazy" />
+            <p>Personnalisation de t-shirts avec logos poitrine et dos.</p>
+          </figure>
+        </article>
+        <article class="gallery-3d-item">
+          <figure class="gallery-card">
+            <img src="assets/Galerie/3.jpeg" alt="Polos brodés pour entreprise" loading="lazy" />
+            <p>Broderie premium sur polos professionnels avec rendu haute précision.</p>
+          </figure>
+        </article>
+        <article class="gallery-3d-item">
+          <figure class="gallery-card">
+            <img src="assets/Galerie/4.jpeg" alt="Vêtements de travail personnalisés" loading="lazy" />
+            <p>Personnalisation de t-shirts avec logos dos associatif.</p>
+          </figure>
+        </article>
+        <article class="gallery-3d-item">
+          <figure class="gallery-card">
+            <img src="assets/Galerie/5.jpeg" alt="Casquettes brodées avec logo" loading="lazy" />
+            <p>Broderie de casquettes avec finitions propres et durables.</p>
+          </figure>
+        </article>
+        <article class="gallery-3d-item">
+          <figure class="gallery-card">
+            <img src="assets/Galerie/6.jpeg" alt="Maillots sportifs personnalisés" loading="lazy" />
+            <p>Idées cadeaux à offrir.</p>
+          </figure>
+        </article>
+        <article class="gallery-3d-item">
+          <figure class="gallery-card">
+            <img src="assets/Galerie/7.jpeg" alt="Veste d'entreprise avec logo brodé" loading="lazy" />
+            <p>Créations de broderies sur mesure.</p>
+          </figure>
+        </article>
+        <article class="gallery-3d-item">
+          <figure class="gallery-card">
+            <img src="assets/Galerie/8.jpeg" alt="Uniformes de restauration personnalisés" loading="lazy" />
+            <p>Broderies personnalisées sur bonnets.</p>
+          </figure>
+        </article>
+        <article class="gallery-3d-item">
+          <figure class="gallery-card">
+            <img src="assets/Galerie/9.jpeg" alt="Textiles événementiels multi-supports" loading="lazy" />
+            <p>Personnalisation de serviettes.</p>
+          </figure>
+        </article>
+        <article class="gallery-3d-item">
+          <figure class="gallery-card">
+            <img src="assets/Galerie/10.jpeg" alt="Pack textile complet pour entreprise" loading="lazy" />
+            <p>Personnalisations soignées sur peignoirs.</p>
+          </figure>
+        </article>
+      </div>
+
+      <div class="gallery-3d-controls">
+        <button class="gallery-3d-btn" id="gallery-prev" type="button" aria-label="Image précédente">&#10094;</button>
+        <div class="gallery-3d-dots" id="gallery-3d-dots" aria-label="Choisir une image"></div>
+        <button class="gallery-3d-btn" id="gallery-next" type="button" aria-label="Image suivante">&#10095;</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function setup3DGallery() {
+      const stage = document.getElementById("gallery-3d-stage");
+      const items = Array.from(document.querySelectorAll(".gallery-3d-item"));
+      const prev = document.getElementById("gallery-prev");
+      const next = document.getElementById("gallery-next");
+      const dotsWrap = document.getElementById("gallery-3d-dots");
+      if (!stage || !items.length || !prev || !next || !dotsWrap) return;
+
+      let current = 0;
+      let autoplayId;
+
+      function circularDelta(from, to, total) {
+        let delta = to - from;
+        if (delta > total / 2) delta -= total;
+        if (delta < -total / 2) delta += total;
+        return delta;
+      }
+
+      function renderDots() {
+        dotsWrap.innerHTML = "";
+        items.forEach(function (_, index) {
+          const dot = document.createElement("button");
+          dot.type = "button";
+          dot.className = "gallery-3d-dot" + (index === current ? " active" : "");
+          dot.setAttribute("aria-label", "Aller à l'image " + (index + 1));
+          dot.addEventListener("click", function () {
+            goTo(index);
+          });
+          dotsWrap.appendChild(dot);
+        });
+      }
+
+      function applyPositions() {
+        items.forEach(function (item, index) {
+          const delta = circularDelta(current, index, items.length);
+          item.className = "gallery-3d-item";
+          if (delta === 0) item.classList.add("is-center");
+          else if (delta === -1) item.classList.add("is-left-1");
+          else if (delta === 1) item.classList.add("is-right-1");
+          else if (delta === -2) item.classList.add("is-left-2");
+          else if (delta === 2) item.classList.add("is-right-2");
+          else item.classList.add("is-hidden");
+
+          item.setAttribute("aria-hidden", delta === 0 ? "false" : "true");
+        });
+      }
+
+      function goTo(index) {
+        current = (index + items.length) % items.length;
+        applyPositions();
+        renderDots();
+      }
+
+      function startAutoplay() {
+        stopAutoplay();
+        autoplayId = window.setInterval(function () {
+          goTo(current + 1);
+        }, 5000);
+      }
+
+      function stopAutoplay() {
+        window.clearInterval(autoplayId);
+      }
+
+      prev.addEventListener("click", function () {
+        goTo(current - 1);
+      });
+
+      next.addEventListener("click", function () {
+        goTo(current + 1);
+      });
+
+      items.forEach(function (item, index) {
+        item.addEventListener("click", function () {
+          if (index !== current) goTo(index);
+        });
+      });
+
+      stage.addEventListener("mouseenter", stopAutoplay);
+      stage.addEventListener("mouseleave", startAutoplay);
+
+      goTo(0);
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        startAutoplay();
+      }
+    })();
+  </script>
+
+    <footer class="site-footer">
+    <div class="container footer-meta">
+      <p>copyright@multipixels 2026</p>
+      <p class="footer-legal"><a href="mentions-legales.html">mentions l&eacute;gales</a></p>
+      <p>site d&eacute;velopp&eacute; par Noct'Owl</p>
+    </div>
+  </footer>
+</body>
+</html>
+
+
