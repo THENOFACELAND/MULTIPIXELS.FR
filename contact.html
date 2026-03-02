@@ -166,7 +166,7 @@
         }, 4200);
       }
 
-      function getContactApiCandidates() {
+      function getContactTargets() {
         const sameOrigin = "/api/contact";
         const localApis = [
           "http://localhost:3000/api/contact",
@@ -174,14 +174,46 @@
           "http://localhost:3001/api/contact",
           "http://127.0.0.1:3001/api/contact"
         ];
+        const formSubmitApi = "https://formsubmit.co/ajax/contact@multipixels.fr";
         const isLocalHost = location.hostname === "localhost" || location.hostname === "127.0.0.1";
         const isLiveServerPort = /^55\d{2}$/.test(location.port || "");
+        const backendApis = isLocalHost && isLiveServerPort
+          ? [...localApis, sameOrigin]
+          : [sameOrigin, ...localApis];
 
-        if (isLocalHost && isLiveServerPort) {
-          return [...localApis, sameOrigin];
+        return [
+          ...backendApis.map(function (url) {
+            return { kind: "backend", url: url };
+          }),
+          { kind: "formsubmit", url: formSubmitApi }
+        ];
+      }
+
+      function buildTargetPayload(target, payload) {
+        if (target.kind === "formsubmit") {
+          return {
+            nom: payload.nom,
+            email: payload.email,
+            tel: payload.tel,
+            service: payload.service || "contact",
+            message: payload.message,
+            _subject: "Nouvelle demande - " + (payload.service || "Contact"),
+            _template: "table",
+            _captcha: "false",
+            _replyto: payload.email
+          };
         }
+        return payload;
+      }
 
-        return [sameOrigin, ...localApis];
+      function getErrorMessageFromBody(body, fallback) {
+        if (!body) return fallback;
+        if (body.error && body.error.message) return body.error.message;
+        if (body.message) return body.message;
+        if (Array.isArray(body.errors) && body.errors[0] && body.errors[0].message) {
+          return body.errors[0].message;
+        }
+        return fallback;
       }
 
       function buildMailtoFallback(payload) {
@@ -215,61 +247,55 @@
         };
 
         try {
-          const apiCandidates = getContactApiCandidates();
-          let apiResponse = null;
-          let apiBody = null;
-          let lastError = null;
-          let shouldFallbackToMailto = false;
+          const targets = getContactTargets();
+          let sent = false;
 
-          for (const apiUrl of apiCandidates) {
+          for (const target of targets) {
             try {
-              const response = await fetch(apiUrl, {
+              const response = await fetch(target.url, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
                   "Accept": "application/json"
                 },
-                body: JSON.stringify(payload)
+                body: JSON.stringify(buildTargetPayload(target, payload))
               });
 
               const contentType = (response.headers.get("content-type") || "").toLowerCase();
-              if (!contentType.includes("application/json")) {
-                const err = new Error("Service d'envoi indisponible. Lancez `npm start`.");
-                err.shouldFallback = true;
-                throw err;
+              let body = null;
+              if (contentType.includes("application/json")) {
+                body = await response.json();
               }
 
-              const body = await response.json();
-              if (!response.ok || !body || !body.ok) {
-                const message = body && body.error && body.error.message
-                  ? body.error.message
-                  : "Impossible d'envoyer votre message pour le moment.";
-                const err = new Error(message);
-                err.shouldFallback = response.status >= 500;
-                throw err;
+              let ok = false;
+              if (target.kind === "backend") {
+                ok = response.ok && !!(body && body.ok);
+              } else {
+                ok = response.ok && !!(
+                  !body ||
+                  body.success === true ||
+                  body.success === "true" ||
+                  body.ok === true
+                );
               }
 
-              apiResponse = response;
-              apiBody = body;
+              if (!ok) {
+                throw new Error(getErrorMessageFromBody(body, "Impossible d'envoyer votre message pour le moment."));
+              }
+
+              sent = true;
               break;
-            } catch (candidateError) {
-              lastError = candidateError;
-              if (!candidateError || candidateError.shouldFallback !== false) {
-                shouldFallbackToMailto = true;
-              }
+            } catch (_) {
             }
           }
 
-          if (!apiResponse || !apiBody || !apiBody.ok) {
-            if (shouldFallbackToMailto) {
-              const mailtoHref = buildMailtoFallback(payload);
-              showPopup("Serveur d'envoi indisponible. Votre application email s'ouvre pour finaliser l'envoi.", false);
-              window.setTimeout(function () {
-                window.location.href = mailtoHref;
-              }, 120);
-              return;
-            }
-            throw lastError || new Error("Service d'envoi indisponible.");
+          if (!sent) {
+            const mailtoHref = buildMailtoFallback(payload);
+            showPopup("Service d'envoi indisponible. Votre application e-mail s'ouvre pour finaliser la demande.", false);
+            window.setTimeout(function () {
+              window.location.href = mailtoHref;
+            }, 120);
+            return;
           }
 
           form.reset();
